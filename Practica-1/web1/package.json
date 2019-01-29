@@ -1,6 +1,6 @@
 {
-  "name": "hello",
-  "description": "Proyecto hola mundo",
+  "name": "server",
+  "description": "Servidor hola mundo",
   "keywords": [
     "ltaw",
     "test"
@@ -16,7 +16,7 @@
   },
 
   "scripts": {
-    "start": "node hello.js",
+    "start": "node server.js",
     "test": "node -v"
   }
 }

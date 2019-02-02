@@ -1,0 +1,38 @@
+.side-bar {
+    float:left;
+    height:80px;
+    width:30%;
+    background-color:#ffa31a;
+  }
+  header {
+      padding: 0.2em;
+      background-color:#333399;
+      text-align: center;
+      color: white;
+
+    }
+  .main {
+    float:right;
+    height:95%;
+    width:68%;
+    background-color:#ffff99;
+  }
+
+  .item {
+    background-color:#0000ff;
+    float: left;
+    width: 30%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  img {
+    float:left;
+    padding-right: 2px;
+  }
+
+  .descripton {
+    float: left;
+  }

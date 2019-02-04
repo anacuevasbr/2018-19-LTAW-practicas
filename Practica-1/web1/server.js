@@ -1,12 +1,36 @@
 var http = require('http');
+var url = require('url')
 var fs = require('fs');
 
 console.log("Arrancando servidor...")
 
 http.createServer(function (req, res) {
-  fs.readFile('index.html', function(err, data){
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(data);
-  console.log("Peticion atendida")
+  var q = url.parse(req.url, true);
+  var filename = "." + q.pathname;
+  var filetype = q.pathname.split(".")[1]
+  console.log(q);
+  console.log(q.pathname);
+  console.log(filetype);
+  if (q.pathname == ('/')){
+    filename = "index.html";
+    filetype = 'html';
+  }
+
+  fs.readFile(filename, function(err, data){
+    if (filetype == "html"){
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end(data);
+    console.log("Peticion atendida html")
+  }else if (filetype == "css") {
+    res.writeHead(200, {'Content-Type': 'text/css'});
+    res.end(data);
+    console.log("Peticion atendida css")
+
+  }else{
+    console.log("Error")
+  }
+
 });
+
+
 }).listen(8080);

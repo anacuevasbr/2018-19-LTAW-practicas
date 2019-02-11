@@ -1,6 +1,14 @@
 var http = require('http');
 var url = require('url')
-var fs = require('fs');
+const fs = require('fs');
+const fileContents = fs.readFileSync('./inventory.json', 'utf8');
+
+try {
+  const data = JSON.parse(fileContents)
+  console.log(data);
+} catch(err) {
+  console.error(err);
+}
 
 console.log("Arrancando servidor...")
 

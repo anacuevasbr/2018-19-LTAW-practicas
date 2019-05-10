@@ -2,18 +2,23 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var usernumber = 0;
-var ids = 38;
+var users = [];
 
 //--Servir la pagina principal
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
-  console.log("Página principal: /")
+
 });
 
 //-- Servir el cliente javascript
 app.get('/chat-client.js', function(req, res){
   res.sendFile(__dirname + '/chat-client.js');
-  console.log("Fichero js solicituado")
+
+});
+
+//--Servir lista de conectados
+app.get('/list', function(req, res){
+  res.send("Hay 0 usuarios conectados");
 });
 
 //-- Lanzar el servidor
@@ -25,15 +30,25 @@ http.listen(3000, function(){
 //-- Evento: Nueva conexion recibida
 //-- Un nuevo cliente se ha conectado!
 io.on('connection', function(socket){
-  usernumber += 1;
-  ids += 1;
+
+  id = generateid()
+  users.push(generateid());
   console.log('--> Usuario conectado!');
-  socket.id = ids;
+  socket.id = id;
   console.log(socket.id)
 
   //-- Detectar si el usuario se ha desconectado
   socket.on('disconnect', function(){
-    usernumber += -1;
+    console.log(users.type);
+    console.log(typeof users);
+    for(j=0; j <= users.lenght; j++){
+      console.log(j);
+        if (socket.id == users){
+          console.log("entra en if");
+          users.splice(j, 1);
+        };
+    };
+    console.log(users)
     console.log('--> Usuario Desconectado');
   });
 
@@ -45,7 +60,10 @@ io.on('connection', function(socket){
     switch(msg){
       case '/list':
         console.log('entrado en list');
-        io.sockets.socket(socketId).emit('new_message', usernumber);
+        socket.emit('new_message', "Hay " + usernumber + " usuarios conectados");
+        break;
+      case '/help':
+        socket.emit('new_message', 'use this');
         break;
       default:
       //-- Emitir un mensaje a todos los clientes conectados
@@ -54,4 +72,14 @@ io.on('connection', function(socket){
 
   })
 
+function generateid(){
+
+  id = Math.floor(Math.random() * (1000 - 600) + 600);
+  for (j=0; j <= users.length; j++){
+    if (id == users[j]){
+      Generateid();
+    }
+  }
+return id;
+}
 });

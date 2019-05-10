@@ -30,6 +30,12 @@ function main() {
   //-- Cuando se reciba un mensaje del servidor se muestra
   //-- en el párrafo
   socket.on('new_message', msg => {
-    display.innerHTML += msg + "<br>";
+    console.log(socket);
+    var para = document.createElement("p");
+    para.className = "message";
+    var text = document.createTextNode(msg);
+    para.appendChild(text);
+    display.appendChild(para);
+    //display.innerHTML += msg + "<br>";
   });
 }

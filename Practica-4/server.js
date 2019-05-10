@@ -10,6 +10,11 @@ app.get('/', function(req, res){
 
 });
 
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.css');
+
+});
+
 //-- Servir el cliente javascript
 app.get('/chat-client.js', function(req, res){
   res.sendFile(__dirname + '/chat-client.js');

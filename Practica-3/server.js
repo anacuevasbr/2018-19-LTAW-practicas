@@ -17,13 +17,9 @@ http.createServer(function (req, res) {
     //-- Pagina principal
     case "/":
     console.log("entra en /" )
-      if (!cookie) {
-        filename = "front/index.html";
+        filename = "index.html";
         filetype = 'html';
-      }else {
-        filename = "front/indexlogged.html";
-        filetype = 'html';
-      }
+
       break
   case "/login":
   console.log("entra en /login" )
@@ -33,12 +29,28 @@ http.createServer(function (req, res) {
       res.setHeader('Set-Cookie', 'user=ana')
 
       break
+  case "/cart":
+      content = "Añadido al carrito!"
+      filetype = "textplain"
+      //-- ESTABLECER LA COOKIE!!
+      res.setHeader('Set-Cookie', 'product=lisa')
+
+  break
   //-- Se intenta acceder a un recurso que no existe
   default:
     content = "Error";
     res.statusCode = 404;
 }
   console.log("Antes del readfile");
+
+  if (!cookie) {
+    filename = "front/notlogged/" + filename;
+
+  }else {
+    filename = "front/logged/" + filename;
+
+  }
+
   console.log("filename:" + filename);
   console.log("filetype:" + filetype);
   fs.readFile(filename, function(err, data){

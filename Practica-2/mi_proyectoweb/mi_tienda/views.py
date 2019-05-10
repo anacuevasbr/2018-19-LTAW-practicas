@@ -16,17 +16,18 @@ def mi_producto(request, param):
 
     num = int(param)
     products = Product.objects.all()
-    print(products[0])
-
+    print('traza')
+    print(str(products[2].name))
+    print('traza')
     t = get_template('product.html')
-    #c = products[num-1]
-    c= {}
+    c = {'name': products[num].name, 'imagen': products[num].image,
+         'descrip': products[num].description, 'price': products[num].price}
     html = t.render(c)
-
     return HttpResponse(html)
 
 def index_func(request):
     #fp = open('/home/alumnos/acuevas/2018-19-LTAW-practicas/Practica-2/mi_tienda/mi_tienda/product.html')
+    products = Product.objects.all()
+    #c = {'name': product.name, 'imagen': product.image}
 
-
-    return render(request, "index.html", {})
+    return render(request, "index.html")

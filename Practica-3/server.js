@@ -18,10 +18,10 @@ http.createServer(function (req, res) {
     case "/":
     console.log("entra en /" )
       if (!cookie) {
-        filename = "index.html";
+        filename = "front/index.html";
         filetype = 'html';
       }else {
-        filename = "indexlogged.html";
+        filename = "front/indexlogged.html";
         filetype = 'html';
       }
       break
@@ -48,7 +48,7 @@ http.createServer(function (req, res) {
     res.end(data);
     console.log("Peticion atendida html")
   }else if (filetype == "css") {
-    console.log("entra en mandar html" )
+    console.log("entra en mandar css" )
     res.writeHead(200, {'Content-Type': 'text/css'});
     res.end(data);
     console.log("Peticion atendida css")

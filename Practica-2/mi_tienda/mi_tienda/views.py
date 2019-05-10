@@ -4,6 +4,7 @@ from django.template.loader import get_template
 import json
 
 
+
 def mi_funcion(request):
     html = "Rafa es tonto"
 
@@ -16,7 +17,7 @@ def mi_producto(request, param):
     num = int(param)
     json_data = open('/home/alumnos/acuevas/2018-19-LTAW-practicas/Practica-2/mi_tienda/mi_tienda/inventory.json')
     data = json.load(json_data)
-    
+
     t = get_template('product.html')
     c = data[num-1]
     html = t.render(c)

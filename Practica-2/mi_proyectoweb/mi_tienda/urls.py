@@ -19,6 +19,6 @@ from mi_tienda.views import index_func
 
 urlpatterns = [
     url(r'^$', index_func),
-    url(r'^producto/(\d{1,2})/', mi_producto),
+    url(r'^producto/(\d{0,2})/', mi_producto),
 
 ]

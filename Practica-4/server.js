@@ -68,8 +68,22 @@ io.on('connection', function(socket){
         socket.emit('new_message', "Hay " + usernumber + " usuarios conectados");
         break;
       case '/help':
-        socket.emit('new_message', 'use this');
+        var commands = "/help:lists all commands, /list:user number, /date:server date, /hello:the server greets you"
+
+        socket.emit('new_message', commands);
         break;
+
+      case '/hello':
+        var greeting = "hello from the server";
+        socket.emit('new_message', greeting);
+        break;
+
+      case '/date':
+        var answer = date();
+        answer = answer[0].toString() + "/" + answer[1].toString() + "/" +answer[2].toString();
+        socket.emit('new_message', answer);
+        break;
+
       default:
       //-- Emitir un mensaje a todos los clientes conectados
         io.emit('new_message', msg);
@@ -86,5 +100,13 @@ function generateid(){
     }
   }
 return id;
+}
+
+function date(){
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  return [dd, mm, yyyy];
 }
 });

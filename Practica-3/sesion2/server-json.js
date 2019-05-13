@@ -1,8 +1,18 @@
 var http = require('http');
 var url = require('url');
+const fs = require('fs');
+
+const fileContents = fs.readFileSync('./inventory.json', 'utf8');
+
+try {
+  var data = JSON.parse(fileContents)
+
+} catch(err) {
+  console.error(err);
+};
 
 const PORT = 8080
-
+console.log(data[0]);
 console.log("Arrancando servidor en puerto " + PORT)
 
 //-- Configurar y lanzar el servidor. Por cada peticion recibida
@@ -40,11 +50,7 @@ http.createServer((req, res) => {
 
       //-- Contenido en formato JSON
       //-- Es lo que se va a devolver en la petición
-      content = `
-      {
-        "productos": ["FPGA", "RISC-V", "74ls00"]
-      }
-      `
+      content = JSON.stringify(data[0]);
       //-- Generar el mensaje de respuesta
       //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
       //-- en la cabecera Content-Type

@@ -1,22 +1,22 @@
-function main()
+function main(num)
 {
   //-- Traza de prueba
   console.log("Hola!")
 
   //-- Obtener el botón de VER del DOM
-  var ver = document.getElementById('ver')
+  //var ver = document.getElementById('ver')
 
   //-- Obtener el párrafo del DOM donde mostrar el resultado
-  var resultado = document.getElementById('resultado');
+  //var resultado = document.getElementById('resultado');
 
   //-- Cuando el usuario aprieta el botón de ver los productos
-  ver.onclick = ()=>{
+  //ver.onclick = ()=>{
 
     //-- Crear objeto para hacer peticiones AJAX
     m = new XMLHttpRequest();
 
     //-- Configurar la petición
-    m.open("GET","http://127.0.0.1:8080/myquery?param1=hola&param2=wei", true);
+    m.open("GET","http://127.0.0.1:8080/product?pr=" + str(num), true);
 
     //-- Cuando la haya alguna noticia sobre la peticion
     //-- ejecuta este código

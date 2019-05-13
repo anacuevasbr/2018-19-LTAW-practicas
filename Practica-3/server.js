@@ -2,6 +2,14 @@ var http = require('http');
 var url = require('url')
 const fs = require('fs');
 
+const fileContents = fs.readFileSync('./inventory.json', 'utf8');
+
+try {
+  var data = JSON.parse(fileContents)
+
+} catch(err) {
+  console.error(err);
+};
 
 console.log("Arrancando servidor...")
 
@@ -10,19 +18,19 @@ http.createServer(function (req, res) {
   var filename = "." + q.pathname;
   var filetype = q.pathname.split(".")[1]
   var cookie = req.headers.cookie;
-  console.log("Cookie: " + cookie)
-  console.log(q.pathname)
+  var product;
+  console.log(filename);
   switch (q.pathname) {
 
     //-- Pagina principal
     case "/":
-    console.log("entra en /" )
+
         filename = "index.html";
         filetype = 'html';
 
       break
   case "/login":
-  console.log("entra en /login" )
+
       content = "Registrado! Cookie enviada al navegador!"
       filetype = "textplain"
       //-- ESTABLECER LA COOKIE!!
@@ -36,13 +44,17 @@ http.createServer(function (req, res) {
       res.setHeader('Set-Cookie', 'product=lisa')
 
   break
+
+  case "/product":
+    var params = q.query;
+    console.log("Parametros: " +params.pr);
   //-- Se intenta acceder a un recurso que no existe
   default:
     content = "Error";
     res.statusCode = 404;
 }
-  console.log("Antes del readfile");
-
+  console.log("filename:" + filename);
+  
   if (!cookie) {
     filename = "front/notlogged/" + filename;
 
@@ -55,20 +67,25 @@ http.createServer(function (req, res) {
   console.log("filetype:" + filetype);
   fs.readFile(filename, function(err, data){
     if (filetype == "html"){
-    console.log("entra en mandar html" )
+
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end(data);
-    console.log("Peticion atendida html")
+
   }else if (filetype == "css") {
-    console.log("entra en mandar css" )
+
     res.writeHead(200, {'Content-Type': 'text/css'});
     res.end(data);
-    console.log("Peticion atendida css")
+
   }else if (filetype == "textplain") {
     res.setHeader('Content-Type', 'text/plain')
     res.write(content);
     res.end();
     console.log("Peticion atendida text")
+  }else if (filetype == "js") {
+    res.setHeader('Content-Type', 'application/javascript')
+    res.write(content);
+    res.end();
+    console.log("Peticion atendida js")
   }else{
     console.log("Error fyletype")
   }

@@ -42,15 +42,20 @@ http.createServer((req, res) => {
     //-- Acceso al recurso JSON
     case "/myquery":
 
+
+      var params = q.query;
+
+      //-- No hacemos nada con ellos, simplemente los mostramos en
+      //-- la consola
+      console.log("Parametros: " +params.param1 + ' y ' + params.param2);
       //-- Contenido en formato JSON
       //-- Es lo que se va a devolver en la petición
+
       content = `
       {
         "productos": ["FPGA", "RISC-V", "74ls00"]
       }
       `
-      var params = q.query;
-      console.log("Parámetros: " + params.param1 + ' y ' + params.param2);
       //-- Generar el mensaje de respuesta
       //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
       //-- en la cabecera Content-Type

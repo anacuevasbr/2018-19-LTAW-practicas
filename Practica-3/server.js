@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
   var filetype = q.pathname.split(".")[1]
   var cookie = req.headers.cookie;
   var product;
-  console.log(filename);
+  console.log(filename)
   switch (q.pathname) {
 
     //-- Pagina principal
@@ -46,15 +46,14 @@ http.createServer(function (req, res) {
   break
 
   case "/product":
-    var params = q.query;
-    console.log("Parametros: " +params.pr);
+    console.log("recibe petición ajax");
   //-- Se intenta acceder a un recurso que no existe
   default:
     content = "Error";
     res.statusCode = 404;
 }
   console.log("filename:" + filename);
-  
+
   if (!cookie) {
     filename = "front/notlogged/" + filename;
 
